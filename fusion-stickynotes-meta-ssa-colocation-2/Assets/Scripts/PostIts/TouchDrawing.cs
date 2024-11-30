@@ -170,7 +170,9 @@ public class TouchDrawing : MonoBehaviour, ITouchable
     
     public void OnToucherContactEnd(Toucher toucher)
     {
+        Debug.Log("ontoucher called");
         var drawer = FindDrawer(toucher);
+        Debug.Log("drawer" + drawer);
         if (drawer == null)
         {
             // Not a hand
@@ -182,7 +184,7 @@ public class TouchDrawing : MonoBehaviour, ITouchable
         {
             toucherPositionsByToucher[toucher].Clear();
         }
-
+        Debug.Log("endline called");
         EndLine(toucher);
         AudioFeedback(toucher);
 
@@ -223,6 +225,11 @@ public class TouchDrawing : MonoBehaviour, ITouchable
         }
 
         if (CanDraw(toucher) == false) return;
+        if(skippedPoints < pointsToSkipToDetectGrabbing)
+        {
+            skippedPoints++;
+            return;
+        }
 
         isDrawing = true;
 
@@ -242,6 +249,7 @@ public class TouchDrawing : MonoBehaviour, ITouchable
 
     protected void EndLine(Toucher toucher = null)
     {
+        Debug.Log("isdrawing: " + isDrawing);
         if (isDrawing == false) return;
 
         if (TryLookForDrawingComponents(out var drawer, toucher) == false)
@@ -264,6 +272,7 @@ public class TouchDrawing : MonoBehaviour, ITouchable
             string note = MapPositionToNote(center); // Implement this function
             //float time = Time.time; // Record time for playback
             musicSheet.Add(new MusicNote { Center = center, Note = note/*, Time = time*/ });
+            Debug.Log("center is: " + center + " , note is : " + note);
         }
 
         drawer.AddDrawingPoint(Vector3.zero, DrawingPoint.END_DRAW_PRESSURE, drawingColor, drawing);
@@ -275,8 +284,9 @@ public class TouchDrawing : MonoBehaviour, ITouchable
         // Notes from bottom (D) to top (G)
         string[] notes = { "D4", "E4", "F4", "G4", "A4", "B4", "C5", "D5", "E5", "F5", "G5"};
 
+        Debug.Log(center.y);
         // Normalize the Y position between 0 and 1
-        float normalizedY = Mathf.Clamp01(center.y); // Clamp to ensure valid input
+        float normalizedY = Mathf.Clamp01(center.y + 0.5f); // Clamp to ensure valid input
 
         // Calculate which note this position maps to
         int noteIndex = Mathf.FloorToInt(normalizedY * notes.Length);
