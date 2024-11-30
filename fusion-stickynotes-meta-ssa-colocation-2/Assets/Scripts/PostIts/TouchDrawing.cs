@@ -7,6 +7,13 @@ using Fusion.XR.Shared.Touch;
 using UnityEngine;
 
 
+public class MusicNote
+{
+    public Vector3 Center { get; set; }
+    public string Note { get; set; }
+    //public float Time { get; set; }
+}
+
 /***
  * 
  * The TouchDrawing class implements the ITouchable interface to handle touch input in order to draw on a texture surface (TextureDrawing). 
@@ -25,6 +32,9 @@ public class TouchDrawing : MonoBehaviour, ITouchable
     Dictionary<Toucher, Grabber> grabberByToucher = new Dictionary<Toucher, Grabber>();
     Grabbable grabbable;
     bool isDrawing = false;
+
+    private List<Vector3> currentDrawingPoints = new List<Vector3>();
+    public List<MusicNote> musicSheet = new List<MusicNote>();
 
     int pointsToSkipToDetectGrabbing = 3;
     int skippedPoints = 0;
@@ -206,28 +216,23 @@ public class TouchDrawing : MonoBehaviour, ITouchable
     protected void Draw(Vector3 position, Toucher toucher = null)
     {
         position = SmoothPosition(position, toucher);
-
         if (TryLookForDrawingComponents(out var drawer, toucher) == false)
         {
-            Debug.LogError($"Unable to draw due to missing component");
+            Debug.LogError("Unable to draw due to missing component");
             return;
         }
 
-        if (CanDraw(toucher) == false)
-        {
-            return;
-        }
-        if (skippedPoints < pointsToSkipToDetectGrabbing)
-        {
-            skippedPoints++;
+        if (CanDraw(toucher) == false) return;
 
-            return;
-        }
         isDrawing = true;
 
         var coordinate = drawing.textureSurface.transform.InverseTransformPoint(position);
+        currentDrawingPoints.Add(coordinate); // Save points for calculating center
 
-        Vector2 textureCoord = new Vector2(drawing.textureSurface.TextureWidth * (coordinate.x + 0.5f), drawing.textureSurface.TextureHeight * (0.5f - coordinate.y));
+        Vector2 textureCoord = new Vector2(
+            drawing.textureSurface.TextureWidth * (coordinate.x + 0.5f),
+            drawing.textureSurface.TextureHeight * (0.5f - coordinate.y)
+        );
 
         var depth = Mathf.Clamp01(coordinate.z / maxDepth);
         pressure = (byte)(1f + 254f * depth);
@@ -238,14 +243,49 @@ public class TouchDrawing : MonoBehaviour, ITouchable
     protected void EndLine(Toucher toucher = null)
     {
         if (isDrawing == false) return;
+
         if (TryLookForDrawingComponents(out var drawer, toucher) == false)
         {
-            Debug.LogError($"Unable to draw due to missing component");
+            Debug.LogError("Unable to draw due to missing component");
             return;
         }
+
+        // Compute center
+        if (currentDrawingPoints.Count > 0)
+        {
+            Vector3 center = Vector3.zero;
+            foreach (var point in currentDrawingPoints)
+            {
+                center += point;
+            }
+            center /= currentDrawingPoints.Count;
+
+            // Map to music sheet
+            string note = MapPositionToNote(center); // Implement this function
+            //float time = Time.time; // Record time for playback
+            musicSheet.Add(new MusicNote { Center = center, Note = note/*, Time = time*/ });
+        }
+
         drawer.AddDrawingPoint(Vector3.zero, DrawingPoint.END_DRAW_PRESSURE, drawingColor, drawing);
         isDrawing = false;
-        skippedPoints = 0;
+        currentDrawingPoints.Clear(); // Clear for next drawing
+    }
+    private string MapPositionToNote(Vector3 center)
+    {
+        // Notes from bottom (D) to top (G)
+        string[] notes = { "D", "E", "F", "G", "A", "B", "C"};
+
+        // Normalize the Y position between 0 and 1
+        float normalizedY = Mathf.Clamp01(center.y); // Clamp to ensure valid input
+
+        // Calculate which note this position maps to
+        int noteIndex = Mathf.FloorToInt(normalizedY * notes.Length);
+
+        // Clamp the index to ensure it's within bounds
+        noteIndex = Mathf.Clamp(noteIndex, 0, notes.Length - 1);
+
+        // Return the corresponding note
+        return notes[noteIndex % 7];    
     }
 
     protected virtual TextureDrawer FindDrawer(Toucher toucher)
