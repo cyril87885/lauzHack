@@ -273,7 +273,7 @@ public class TouchDrawing : MonoBehaviour, ITouchable
     private string MapPositionToNote(Vector3 center)
     {
         // Notes from bottom (D) to top (G)
-        string[] notes = { "D", "E", "F", "G", "A", "B", "C"};
+        string[] notes = { "D4", "E4", "F4", "G4", "A4", "B4", "C5", "D5", "E5", "F5", "G5"};
 
         // Normalize the Y position between 0 and 1
         float normalizedY = Mathf.Clamp01(center.y); // Clamp to ensure valid input
@@ -285,7 +285,7 @@ public class TouchDrawing : MonoBehaviour, ITouchable
         noteIndex = Mathf.Clamp(noteIndex, 0, notes.Length - 1);
 
         // Return the corresponding note
-        return notes[noteIndex % 7];    
+        return notes[noteIndex];    
     }
 
     protected virtual TextureDrawer FindDrawer(Toucher toucher)
