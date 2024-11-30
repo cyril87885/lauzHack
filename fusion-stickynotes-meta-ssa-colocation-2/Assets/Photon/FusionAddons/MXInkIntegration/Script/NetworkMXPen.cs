@@ -107,7 +107,7 @@ namespace Fusion.Addons.MXPenIntegration {
 
         protected virtual void VolumeDrawing()
         {
-            var pressure = localHardwareStylus.CurrentState.cluster_middle_value;
+            var pressure = 0;
             bool shouldIgnoreContactPressure = false;
             if (ignoreContactPressureIfVirtualContactAlreadyHandled)
             {

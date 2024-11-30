@@ -18,6 +18,7 @@ public class ColoredNetworkMXPen : NetworkMXPen, IColorProvider
     public Color CurrentColor { get; set; }
       
     private Color previousColor = Color.clear;
+    /*mettre que du noir*/
     public List<Color> colorList = new List<Color> {
             new Color(10f/255f, 10f/255f, 10f/255f, 1),
             new Color(255f/255f, 100f/255f, 100f/255f, 1),

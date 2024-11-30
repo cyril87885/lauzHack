@@ -23,7 +23,7 @@ public class SpatialButtonWithIcons : SpatialButton
               {
                   primaryIcon.SetActive(true);
 
-                  if (secondaryIcon != null)
+                  if (secondaryIcon !=  null)
                   {
                       primaryIcon.SetActive(!isButtonPressed);
                       secondaryIcon.SetActive(isButtonPressed);

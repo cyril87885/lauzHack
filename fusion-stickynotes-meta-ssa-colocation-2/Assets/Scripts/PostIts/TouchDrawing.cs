@@ -220,7 +220,6 @@ public class TouchDrawing : MonoBehaviour, ITouchable
         if (skippedPoints < pointsToSkipToDetectGrabbing)
         {
             skippedPoints++;
-
             return;
         }
         isDrawing = true;
