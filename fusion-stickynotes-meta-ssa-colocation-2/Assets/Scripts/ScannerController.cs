@@ -31,7 +31,12 @@ public class ScannerController : MonoBehaviour
 
     public AudioSource audioSource;
 
-    public AudioClip[] audioClips = new AudioClip[11];
+    private int currInstrument = 0;
+
+    public AudioClip[] pianoAudioClips = new AudioClip[11];
+    public AudioClip[] fluteAudioClips = new AudioClip[11];
+    public AudioClip[] drumsAudioClips = new AudioClip[11];
+    //public AudioClip[] AudioClips = new AudioClip[11];
     // Start is called before the first frame update
     void Start()
     {
@@ -67,13 +72,37 @@ public class ScannerController : MonoBehaviour
     void PlayMusic(string note)
     {
         //audioSource.PlayOneShot(audioClips[MapNoteToIndex(note)]);
-        audioSource.PlayOneShot(audioClips[MapNoteToIndex(note)]);
+        if(currInstrument == 0)
+        {
+            audioSource.PlayOneShot(pianoAudioClips[MapNoteToIndex(note)]);
+            Debug.Log("Playing Piano");
+        }
+        else if(currInstrument == 1){
+            audioSource.PlayOneShot(fluteAudioClips[MapNoteToIndex(note)]);
+            Debug.Log("Playing Piano");
+        }
+        else if(currInstrument == 2)
+        {
+            audioSource.PlayOneShot(drumsAudioClips[MapNoteToIndex(note)]);
+            Debug.Log("Playing Piano");
+        }
+        else
+        {
+            audioSource.PlayOneShot(pianoAudioClips[MapNoteToIndex(note)]);
+            Debug.Log("Playing god knows what");
+        }
+
         Debug.Log("Playing note: " + note);
     } 
 
     bool AreFloatsEqual(float a, float b, float epsilon = 1e-1f)
     {
         return Mathf.Abs(a - b) <= epsilon;
+    }
+
+    public void ChangeInstrument(int i)
+    {
+        currInstrument = i;
     }
 
     public static int MapNoteToIndex(string input)
