@@ -3292,6 +3292,7 @@ GameObject:
   - component: {fileID: 6525589031821292181}
   - component: {fileID: 7490903134301605472}
   - component: {fileID: 5710587272987158202}
+  - component: {fileID: 6750845824958072219}
   m_Layer: 0
   m_Name: Scanner
   m_TagString: Untagged
@@ -3401,6 +3402,116 @@ MonoBehaviour:
   startPoint: {x: -4, y: 0, z: 0}
   endPoint: {x: 4, y: 0, z: 0}
   bpm: 120
+  drawing: {fileID: 1618837410884838063}
+  audioSource: {fileID: 6750845824958072219}
+  audioClips:
+  - {fileID: 8300000, guid: 3de04585ebb771a469862d42b0000139, type: 3}
+  - {fileID: 8300000, guid: fe50d4c47b4ed7a40ab89622ab971c9f, type: 3}
+  - {fileID: 8300000, guid: d87cc26abdf9f9d448b340c403a5da27, type: 3}
+  - {fileID: 8300000, guid: 214c276ee91d5044ea6a7f3a5d285975, type: 3}
+  - {fileID: 8300000, guid: 2b3e84c5733a6764cbb5ff8f204c290c, type: 3}
+  - {fileID: 8300000, guid: 9a8a12febb666444cbbbac3f22845d33, type: 3}
+  - {fileID: 8300000, guid: 884402225a42724478bbc90213cd21d2, type: 3}
+  - {fileID: 8300000, guid: be578c702f13b684d83ea6d4a9faffca, type: 3}
+  - {fileID: 8300000, guid: d6ce396f4ae39974bb92b7439535e6c1, type: 3}
+  - {fileID: 8300000, guid: e812a818cd11fcd4791e3db86e7f75b3, type: 3}
+  - {fileID: 8300000, guid: 99aed7e48926cde439cac49b16d069f0, type: 3}
+--- !u!82 &6750845824958072219
+AudioSource:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6111176836917551905}
+  m_Enabled: 1
+  serializedVersion: 4
+  OutputAudioMixerGroup: {fileID: 0}
+  m_audioClip: {fileID: 0}
+  m_PlayOnAwake: 1
+  m_Volume: 1
+  m_Pitch: 1
+  Loop: 0
+  Mute: 0
+  Spatialize: 0
+  SpatializePostEffects: 0
+  Priority: 128
+  DopplerLevel: 1
+  MinDistance: 1
+  MaxDistance: 500
+  Pan2D: 0
+  rolloffMode: 0
+  BypassEffects: 0
+  BypassListenerEffects: 0
+  BypassReverbZones: 0
+  rolloffCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 1
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  panLevelCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  spreadCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  reverbZoneMixCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
 --- !u!1 &6215464764823422201
 GameObject:
   m_ObjectHideFlags: 0
@@ -6375,6 +6486,21 @@ PrefabInstance:
       propertyPath: drawRenderer
       value: 
       objectReference: {fileID: 830436273428960380}
+    - target: {fileID: 625665983616315160, guid: 151949d64f3585e4abc1c03ce451cc1b,
+        type: 3}
+      propertyPath: startColor.b
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 625665983616315160, guid: 151949d64f3585e4abc1c03ce451cc1b,
+        type: 3}
+      propertyPath: startColor.g
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 625665983616315160, guid: 151949d64f3585e4abc1c03ce451cc1b,
+        type: 3}
+      propertyPath: startColor.r
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 625665983616315163, guid: 151949d64f3585e4abc1c03ce451cc1b,
         type: 3}
       propertyPath: SortKey

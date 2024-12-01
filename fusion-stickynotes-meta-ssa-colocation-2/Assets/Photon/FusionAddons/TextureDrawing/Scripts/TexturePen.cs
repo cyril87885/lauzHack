@@ -116,7 +116,6 @@ namespace Fusion.Addons.TextureDrawing
                     var surface = lastTextureDrawing.textureSurface;
                     Vector2 textureCoord = new Vector2(surface.TextureWidth * (coordinate.x + 0.5f), surface.TextureHeight * (0.5f - coordinate.y));
                     var newCoords = new Vector2(coordinate.x + 0.5f, 0.5f - coordinate.y);
-                    Debug.Log("new" + newCoords);
 
                     // Track the drawing point
                     currentDrawingPoints.Add(newCoords);
@@ -163,7 +162,6 @@ namespace Fusion.Addons.TextureDrawing
                     // });
                     MusicNote noteObj = new MusicNote { Center = center, Time = Time.time, Note = note };
                     textureDrawer.AddMusicNote(noteObj, previousTextureDrawing);
-                    Debug.Log("note:" + note);
                     // Clear the current drawing points for the next drawing
                     currentDrawingPoints.Clear();
                 }
@@ -182,7 +180,6 @@ namespace Fusion.Addons.TextureDrawing
             // Notes from bottom (D) to top (G)
             string[] notes = { "D4", "E4", "F4", "G4", "A4", "B4", "C5", "D5", "E5", "F5", "G5" };
 
-            Debug.Log("center" + center);
             // Normalize the Y position between 0 and 1
             float normalizedY = Mathf.Clamp01(-center.y + 1); // Clamp to ensure valid input
 
