@@ -12,18 +12,21 @@ namespace Fusion.Addons.TextureDrawing
      * 
      ***/
 
+
+    // Define a structure for music sheet notes
+    public struct MusicNote
+    {
+        public Vector2 Center; // Center of the drawing
+        public float Time;     // Timestamp of when the note was drawn
+        public string Note;    // Calculated note (e.g., "C", "D")
+    }
+
     public class TexturePen : NetworkBehaviour
     {
 
         private List<Vector2> currentDrawingPoints = new List<Vector2>();
 
-        // Define a structure for music sheet notes
-        public struct MusicNote
-        {
-            public Vector2 Center; // Center of the drawing
-            public float Time;     // Timestamp of when the note was drawn
-            public string Note;    // Calculated note (e.g., "C", "D")
-        }
+
         // private List<MusicNote> musicSheet = new List<MusicNote>();
 
 
@@ -158,7 +161,8 @@ namespace Fusion.Addons.TextureDrawing
                     //     Time = Time.time,
                     //     Note = note
                     // });
-                    textureDrawer.AddMusicNote(new MusicNote{Center = center, Time = Time.time, Note = note}, previousTextureDrawing)
+                    MusicNote noteObj = new MusicNote { Center = center, Time = Time.time, Note = note };
+                    textureDrawer.AddMusicNote(noteObj, previousTextureDrawing);
                     Debug.Log("note:" + note);
                     // Clear the current drawing points for the next drawing
                     currentDrawingPoints.Clear();

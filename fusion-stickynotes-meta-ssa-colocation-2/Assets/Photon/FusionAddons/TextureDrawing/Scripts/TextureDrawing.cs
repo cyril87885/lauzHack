@@ -26,7 +26,7 @@ namespace Fusion.Addons.TextureDrawing
         Dictionary<NetworkBehaviourId, int> lastDrawnPointIndexByDrawerId = new Dictionary<NetworkBehaviourId, int>();
         Dictionary<NetworkBehaviourId, TextureDrawer> drawerByDrawerId = new Dictionary<NetworkBehaviourId, TextureDrawer>();
         public TextureSurface textureSurface;
-        private List<MusicNote> musicSheet = new List<MusicNote>();
+        public List<MusicNote> musicSheet = new List<MusicNote>();
 
         [Header("Drawer color override")]
         public bool overrideDrawerColor = false;
@@ -114,7 +114,12 @@ namespace Fusion.Addons.TextureDrawing
         }
 
         public void StoreMusicNoteData(MusicNote musicNote, TextureDrawer textureDrawer){
-            musicSheet.add(musicNote);
+
+            musicSheet.Add(musicNote);
+            foreach(var note in musicSheet)
+            {
+                Debug.Log(note.Center + " "+note.Note);
+            }
         }
 
         // Store entry in local drawingPointsByDrawerId[entry.referenceId] cache
