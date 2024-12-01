@@ -123,7 +123,7 @@ namespace Fusion.Addons.MXPenIntegration {
             if (shouldIgnoreContactPressure == false)
             {
                 var tipPressure = localHardwareStylus.CurrentState.tip_value;
-                pressure = Mathf.Max(pressure, tipPressure);
+                pressure = (int) Mathf.Max((float)pressure, tipPressure);
             }
             if (pressure > 0.01f)
             {

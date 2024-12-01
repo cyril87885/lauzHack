@@ -16,7 +16,7 @@ public class ScannerController : MonoBehaviour
         speed = (endPoint.x - startPoint.x) / totalTime;
         currPosition = startPoint.x;
 
-        transform.localPosition = new Vector3(currPosition, transform.position.y, transform.position.z);
+        transform.localPosition = new Vector3(currPosition, transform.localPosition.y, transform.localPosition.z);
     }
 
     // Update is called once per frame
@@ -25,7 +25,6 @@ public class ScannerController : MonoBehaviour
         currPosition += speed * Time.deltaTime;
         currPosition = (currPosition > endPoint.x) ? startPoint.x : currPosition;
 
-        transform.localPosition = new Vector3(currPosition, transform.position.y, transform.position.z);
-        Debug.Log(currPosition);
+        transform.localPosition = new Vector3(currPosition, transform.localPosition.y, transform.localPosition.z);
     }
 }
