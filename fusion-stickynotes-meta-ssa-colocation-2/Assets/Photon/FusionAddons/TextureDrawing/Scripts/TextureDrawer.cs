@@ -120,6 +120,11 @@ namespace Fusion.Addons.TextureDrawing
             AddDrawingPoint(Vector2.zero, DrawingPoint.END_DRAW_PRESSURE, Color.clear, targetDrawing);
         }
 
+        public void AddMusicNote(MusicNote musicNote, TextureDrawing targetDrawing){
+            if (targetDrawing == null) return;
+            targetDrawing.StoreMusicNoteData(musicNote, this);
+        }
+
         // Should be called during FUN. No throttling to protect the amount of data inserted
         public void AddDrawingPoint(Vector2 textureCoord, byte pressure, Color color, TextureDrawing targetDrawing, bool sendDatatoLocalDrawing = true)
         {

@@ -26,6 +26,7 @@ namespace Fusion.Addons.TextureDrawing
         Dictionary<NetworkBehaviourId, int> lastDrawnPointIndexByDrawerId = new Dictionary<NetworkBehaviourId, int>();
         Dictionary<NetworkBehaviourId, TextureDrawer> drawerByDrawerId = new Dictionary<NetworkBehaviourId, TextureDrawer>();
         public TextureSurface textureSurface;
+        private List<MusicNote> musicSheet = new List<MusicNote>();
 
         [Header("Drawer color override")]
         public bool overrideDrawerColor = false;
@@ -110,6 +111,10 @@ namespace Fusion.Addons.TextureDrawing
             // Store data in data cache, to share with late joiners or to redraw fully
             // Note: as an alternative implementation, cached data, sent to late joiner, could also not include positionInDrawerGlobalIndex, which is used for interpolation purposes, not relevant for late joiner resync (the data will be too old for interpolation to matter)
             AddLocalData(entry.AsByteArray);
+        }
+
+        public void StoreMusicNoteData(MusicNote musicNote, TextureDrawer textureDrawer){
+            musicSheet.add(musicNote);
         }
 
         // Store entry in local drawingPointsByDrawerId[entry.referenceId] cache

@@ -24,7 +24,7 @@ namespace Fusion.Addons.TextureDrawing
             public float Time;     // Timestamp of when the note was drawn
             public string Note;    // Calculated note (e.g., "C", "D")
         }
-        private List<MusicNote> musicSheet = new List<MusicNote>();
+        // private List<MusicNote> musicSheet = new List<MusicNote>();
 
 
         BlockableTip blockableTip;
@@ -152,12 +152,13 @@ namespace Fusion.Addons.TextureDrawing
                     string note = MapPositionToNote(center);
 
                     // Save the note data
-                    musicSheet.Add(new MusicNote
-                    {
-                        Center = center,
-                        Time = Time.time,
-                        Note = note
-                    });
+                    // musicSheet.Add(new MusicNote
+                    // {
+                    //     Center = center,
+                    //     Time = Time.time,
+                    //     Note = note
+                    // });
+                    textureDrawer.AddMusicNote(new MusicNote{Center = center, Time = Time.time, Note = note}, previousTextureDrawing)
                     Debug.Log("note:" + note);
                     // Clear the current drawing points for the next drawing
                     currentDrawingPoints.Clear();
